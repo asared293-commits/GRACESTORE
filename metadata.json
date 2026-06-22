@@ -1,0 +1,6 @@
+{
+  "name": "GraceStore",
+  "description": "A production-ready e-commerce platform featuring a customer storefront, admin dashboard, inventory management, delivery tracking with OpenStreetMap, and a real-time bargaining system.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

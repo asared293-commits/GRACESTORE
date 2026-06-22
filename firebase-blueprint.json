@@ -1,0 +1,233 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "role": { "type": "string", "enum": ["customer", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "E-commerce product listing",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "price": { "type": "number" },
+        "stock": { "type": "integer" },
+        "images": { "type": "array" },
+        "status": { "type": "string", "enum": ["active", "archived"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "stock", "images", "status"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerContact": { "type": "string" },
+        "deliveryType": { "type": "string", "enum": ["delivery", "pickup", "bargain"] },
+        "deliveryAddress": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "status": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "deliveryFee": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "deliveryType", "status", "totalAmount"]
+    },
+    "OrderItem": {
+      "title": "OrderItem",
+      "description": "Snapshot of product in an order",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "quantity": { "type": "integer" },
+        "image": { "type": "string" }
+      },
+      "required": ["productId", "name", "price", "quantity", "image"]
+    },
+    "CartItem": {
+      "title": "CartItem",
+      "description": "Item in user shopping cart",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "quantity": { "type": "integer" },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "quantity"]
+    },
+    "WishlistItem": {
+      "title": "WishlistItem",
+      "description": "Product added to wishlist",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Chat conversation between customer and seller",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "unreadCount": { "type": "integer" }
+      },
+      "required": ["userId"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Chat message",
+      "type": "object",
+      "properties": {
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "image": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "text"]
+    },
+    "AdminSettings": {
+      "title": "AdminSettings",
+      "description": "Global store settings",
+      "type": "object",
+      "properties": {
+        "storeName": { "type": "string" },
+        "storeAddress": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "whatsappNumber": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "businessEmail": { "type": "string" },
+        "businessHours": { "type": "string" }
+      }
+    },
+    "NewsletterSubscription": {
+      "title": "Newsletter Subscription",
+      "description": "Records an email address for marketing purposes.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A notification alert for a specific user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["chat", "order", "promo"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "link": { "type": "string" }
+      },
+      "required": ["userId", "title", "message", "type", "read", "createdAt"]
+    },
+    "Promo": {
+      "title": "Promo Code",
+      "description": "Discount code for orders.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "discountType": { "type": "string", "enum": ["percentage", "fixed"] },
+        "discountValue": { "type": "number" },
+        "minOrderAmount": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "discountType", "discountValue", "isActive", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Product listings"
+    },
+    "categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Product categories"
+    },
+    "orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders"
+    },
+    "orders/{orderId}/items/{itemId}": {
+      "schema": "OrderItem",
+      "description": "Snapshot of items in an order"
+    },
+    "users/{userId}/cart/{productId}": {
+      "schema": "CartItem",
+      "description": "User shopping cart items"
+    },
+    "users/{userId}/wishlist/{productId}": {
+      "schema": "WishlistItem",
+      "description": "User wishlist items"
+    },
+    "conversations/{convId}": {
+      "schema": "Conversation",
+      "description": "Active chat threads"
+    },
+    "conversations/{convId}/messages/{msgId}": {
+      "schema": "Message",
+      "description": "Actual messages in a thread"
+    },
+    "settings/store": {
+      "schema": "AdminSettings",
+      "description": "Store configuration"
+    },
+    "newsletter/{id}": {
+      "schema": "NewsletterSubscription",
+      "description": "Email subscriptions for marketing."
+    },
+    "notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "User notifications for orders and chat replies."
+    },
+    "promos/{promoId}": {
+      "schema": "Promo",
+      "description": "Discount codes managed by admin."
+    }
+  }
+}
